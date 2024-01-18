@@ -1,4 +1,5 @@
 #!/bin/bash
-sleep 10
+sleep 25
 export DISPLAY=:0
-cvlc --fullscreen --loop --no-video-title-show /home/bbusa/Videos/*.*
+
+cvlc --fullscreen --no-video-title-show --repeat /home/bbusa/Videos/*.mp4
