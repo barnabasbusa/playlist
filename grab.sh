@@ -17,7 +17,7 @@ if [ "$(git status --porcelain)" ]; then
     # Read the video list file and run youtube-dl on each video
     while IFS= read -r video_file; do
         echo "Downloading video: $video_file"
-        youtube-dl "$video_file"
+        youtube-dl "$video_file" -o "/home/bbusa/Videos/%(title)s-%(id)s.%(ext)s" -v -f bestvideo+bestaudio
     done < "$VIDEO_LIST_FILE"
 
     echo "Download complete."
