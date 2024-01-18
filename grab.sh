@@ -7,6 +7,9 @@ VIDEO_LIST_FILE=/home/bbusa/playlist/playlist.txt
 # Change to the repository directory
 cd "$REPO_DIR" || exit
 
+# Fetch changes from the remote repository
+git fetch
+
 # Check if there are changes (including untracked files)
 if [ "$(git status -uno --porcelain)" ]; then
     echo "Changes detected. Pulling changes from the remote repository."
@@ -15,9 +18,17 @@ if [ "$(git status -uno --porcelain)" ]; then
     git pull
 
     # Read the video list file and run youtube-dl on each video
+    index=1
     while IFS= read -r video_file; do
         echo "Downloading video: $video_file"
-        youtube-dl "$video_file"
+        
+        # Use index as the filename with a .mp4 extension
+        output_file="$index.mp4"
+        
+        # Increment index for the next video
+        ((index++))
+        
+        youtube-dl -o "$output_file" "$video_file"
     done < "$VIDEO_LIST_FILE"
 
     echo "Download complete."
