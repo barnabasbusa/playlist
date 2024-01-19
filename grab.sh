@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set the paths
-REPO_DIR=/home/bbusa/playlist
-VIDEO_LIST_FILE=/home/bbusa/playlist/playlist.txt
+REPO_DIR=./
+VIDEO_LIST_FILE=./playlist.txt
 
 # Change to the repository directory
 cd "$REPO_DIR" || exit
@@ -23,12 +23,12 @@ if [ "$(git status -uno --porcelain)" ]; then
         echo "Downloading video: $video_file"
         
         # Use index as the filename with a .mp4 extension
-        output_file="$index.mp4"
+        output_file="$index"
         
         # Increment index for the next video
         ((index++))
         
-        youtube-dl -o "$output_file" "$video_file"
+        yt-dlp -o "$output_file" "$video_file"
     done < "$VIDEO_LIST_FILE"
 
     echo "Download complete."
